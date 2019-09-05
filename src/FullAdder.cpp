@@ -31,8 +31,9 @@ void FullAdder::set_carry_in (Bit c)
 
 void FullAdder::compute()
 {
-  out = (a+b+carry_in)&0x01;
-  carry_out = ( a+b+carry_in > 1 ? 1:0);
+  out = (a+b+carry_in)&1;
+  //carry_out is Bit type and we use the 2nd lsb of add result so we must shit the valued bit to lsb
+  carry_out = ((a+b+carry_in)&2) >> 1;
 }
 
 Bit FullAdder::get_out()

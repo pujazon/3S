@@ -10,13 +10,13 @@ class Add16 {
     Bit  carry_out;
     //Without carry_in
 
+    void compute();
+
   public:
     //Constructor
     //srand is called in main at begining
     Add16();
     Add16(WORD X_in, WORD Y_in);
-
-    void compute();
 
     //Get and Set
     void set_X (WORD X_in);
