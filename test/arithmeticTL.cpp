@@ -1,7 +1,6 @@
 #include "../src/Add16.h"
 
-#define TEST_CASES 5
-//#define TEST_CASES 8
+#define TEST_CASES 8
 
 int main()
 {
@@ -66,9 +65,6 @@ int main()
   }
 
   printf("Add16 Test: 3 cases\n");
-  WORD ww = ADD.get_W();
-  WORD out = ADD.get_carry_out();
-  printf("here W == %d, Carry Out = %d\n",ww,out);
   if(ADD.get_W() == 6 && ADD.get_carry_out() == 0)
   {
     printf("Case 1 Add16 Test Pass successfull!\n");
@@ -76,7 +72,7 @@ int main()
   } else {
     printf("Case 1 Add16 Test Failed!\n");
     failed++;
-  }/*
+  }
   ADD.set_X(256);
   ADD.set_Y(256);
   if(ADD.get_W() == 512 && ADD.get_carry_out() == 0)
@@ -87,7 +83,7 @@ int main()
     printf("Case 2 Add16 Test Failed!\n");
     failed++;
   }
-  ADD.set_X(65535);
+  ADD.set_X(65535); //(2^32)-1. Overflow case
   ADD.set_Y(1);
   if(ADD.get_W() == 0 && ADD.get_carry_out() == 1)
   {
@@ -97,7 +93,7 @@ int main()
     printf("Case 3 Add16 Test Failed!\n");
     failed++;
   }
-*/
+
   printf ("%d passed tests, %d failed tests.\n",passed, failed);
 
   if(failed == 0)

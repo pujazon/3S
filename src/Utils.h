@@ -6,6 +6,7 @@
 #include <math.h>
 using namespace std;
 
-typedef uint8_t  BYTE;
-typedef uint16_t WORD;
-typedef uint8_t  Bit;
+//TODO: Fix why short sized data doesn't work. ADD16 Case 1
+typedef int BYTE;
+typedef int WORD;
+typedef int Bit;
