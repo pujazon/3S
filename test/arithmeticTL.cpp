@@ -1,6 +1,12 @@
+#include "../src/UtilsTest.h"
 #include "../src/Add16.h"
+#include "../src/FullSubstractor.h"
 
-#define TEST_CASES 8
+//TODO: Coherence between failed and passed with TEST_CASES
+//#define TEST_CASES 8
+
+int passed = 0;
+int failed = 0;
 
 int main()
 {
@@ -10,91 +16,79 @@ int main()
   srand (time(NULL));
   printf ("Random initialized!\n");
 
-  int passed = 0;
-  int failed = 0;
+  FullAdder		FA(0,0,0);
+  FullSubstractor	FS(0,0,0);
+  Add16			ADD(3,3);
 
-  FullAdder	FA(0,0,0);
-  Add16		ADD(3,3);
+  printf("\n********************\n");
+  printf("FullAdder Test\n"); 
+  printf("TestCase 0\n");
+  evaluate(0,FA.get_out());
+  evaluate(0,FA.get_carry_out()); 
 
-  printf("FullAdder Test: %d cases\n",TEST_CASES);  
-  if(FA.get_out() == 0 && FA.get_carry_out() == 0)
-  {
-    printf("Case 1 FullAdder Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("Case 1 FullAdder Test Failed!\n");
-    failed++;
-  }
+  printf("\nTestCase 1\n");
   FA.set_a(1);
-  if(FA.get_out() == 1 && FA.get_carry_out() == 0)
-  {
-    printf("Case 2 FullAdder Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("Case 2 FullAdder Test Failed!\n");
-    failed++;
-  }
-  FA.set_b(1);
-  if(FA.get_out() == 0 && FA.get_carry_out() == 1)
-  {
-    printf("Case 3 FullAdder Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("Case 3 FullAdder Test Failed!\n");
-    failed++;
-  }
-  FA.set_carry_in(1);
-  if(FA.get_out() == 1 && FA.get_carry_out() == 1)
-  {
-    printf("Case 4 FullAdder Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("Case 4 FullAdder Test Failed!\n");
-    failed++;
-  }
-  FA.set_a(0);
-  FA.set_b(1);
-  FA.set_carry_in(1);
-  if(FA.get_out() == 0 && FA.get_carry_out() == 1)
-  {
-    printf("Case 5 FullAdder Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("Case 5 FullAdder Test Failed!\n");
-    failed++;
-  }
+  evaluate(1,FA.get_out());
+  evaluate(0,FA.get_carry_out()); 
 
-  printf("Add16 Test: 3 cases\n");
-  if(ADD.get_W() == 6 && ADD.get_carry_out() == 0)
-  {
-    printf("Case 1 Add16 Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("Case 1 Add16 Test Failed!\n");
-    failed++;
-  }
+  printf("\nTestCase 2\n");
+  FA.set_b(1);
+  evaluate(0,FA.get_out());
+  evaluate(1,FA.get_carry_out()); 
+
+  printf("\nTestCase 3\n");
+  FA.set_carry_in(1);
+  evaluate(1,FA.get_out());
+  evaluate(1,FA.get_carry_out()); 
+
+
+  printf("\n********************\n");
+  printf("FullSubstractor Test\n"); 
+  printf("TestCase 0\n");
+  evaluate(0,FS.get_out());
+  evaluate(0,FS.get_borrow()); 
+
+  printf("\nTestCase 1\n");
+  FS.set_a(1);
+  evaluate(1,FS.get_out());
+  evaluate(0,FS.get_borrow()); 
+
+  printf("\nTestCase 2\n");
+  FS.set_b(1);
+  evaluate(0,FS.get_out());
+  evaluate(0,FS.get_borrow()); 
+
+  printf("\nTestCase 3\n");
+  FA.set_carry_in(1);
+  evaluate(1,FS.get_out());
+  evaluate(1,FS.get_borrow()); 
+
+  printf("\nTestCase 4\n");
+  FS.set_a(0);
+  FS.set_b(1);
+  FS.set_carry_in(1);
+  evaluate(0,FS.get_out());
+  evaluate(1,FS.get_borrow()); 
+
+  printf("\n********************\n");
+  printf("Add16 Test\n"); 
+  printf("TestCase 0\n");
+  evaluate(6,ADD.get_W());
+  evaluate(0,ADD.get_carry_out()); 
+
+  printf("\nTestCase 1\n");
   ADD.set_X(256);
   ADD.set_Y(256);
-  if(ADD.get_W() == 512 && ADD.get_carry_out() == 0)
-  {
-    printf("Case 2 Add16 Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("Case 2 Add16 Test Failed!\n");
-    failed++;
-  }
+  evaluate(512,ADD.get_W());
+  evaluate(0,ADD.get_carry_out());  
+
+  printf("\nTestCase 2\n");
   ADD.set_X(65535); //(2^32)-1. Overflow case
   ADD.set_Y(1);
-  if(ADD.get_W() == 0 && ADD.get_carry_out() == 1)
-  {
-    printf("Case 3 Add16 Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("Case 3 Add16 Test Failed!\n");
-    failed++;
-  }
+  evaluate(0,ADD.get_W());
+  evaluate(1,ADD.get_carry_out());  
 
-  printf ("%d passed tests, %d failed tests.\n",passed, failed);
+  //printf ("%d passed tests, %d failed tests.\n",passed, failed);
 
   if(failed == 0)
   {

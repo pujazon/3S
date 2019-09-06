@@ -1,78 +1,54 @@
-#include "../src/Utils.h"
+#include "../src/UtilsTest.h"
 #include "../src/And2.h"
 #include "../src/Not.h"
 #include "../src/Or2.h"
 #include "../src/Mux2_1.h"
 
-#define TEST_CASES 5
+//TODO: Coherence between failed and passed with TEST_CASES
+//#define TEST_CASES 5
+
+int passed = 0;
+int failed = 0;
 
 int main()
 {
-
   printf("Logic Gates test:\n");
 
   srand (time(NULL));
   printf ("Random initialized!\n");
-
-  int passed = 0;
-  int failed = 0;
 
   AND2 		and1(1,1);
   OR2 		or1(0,0);
   NOT 		n(1);
   MUX2_1	mux21(0,1,1);
 
+  printf("\n********************\n");
   printf("AND2 Test:\n");
-  if(and1.get_out() == 1)
-  {
-    printf("AND2 Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("AND2 Test Failed!\n");
-    failed++;
-  }
+  evaluate(1,and1.get_out());
 
+
+  printf("\n********************\n");
   printf("OR2 Test:\n");
-  if(or1.get_out() == 0)
-  {
-    printf("OR2 Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("OR2 Test Failed!\n");
-    failed++;
-  }
+  evaluate(0,or1.get_out());
 
+  printf("\n********************\n");
   printf("NOT Test:\n");
-  if(n.get_out() == 0)
-  {
-    printf("NOT Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("NOT Test Failed!\n");
-    failed++;
-  }
-  
-  printf("MUX2_1 Test: 2 cases\n");  
-  if(mux21.get_out() == 1)
-  {
-    printf("Case 1 MUX2_1 Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("Case 1 MUX2_1 Test Failed!\n");
-    failed++;
-  }
-  mux21.set_s(0);
-  if(mux21.get_out() == 0)
-  {
-    printf("Case 2 MUX2_1 Test Pass successfull!\n");
-    passed++;
-  } else {
-    printf("Case 2 MUX2_1 Test Failed!\n");
-    failed++;
-  }
-  printf ("%d passed tests, %d failed tests.\n",passed, failed);
+  evaluate(0,n.get_out());
 
-  if(passed == TEST_CASES)
+  printf("\n********************\n");
+  printf("MUX2_1 Test\n"); 
+  printf("TestCase 0\n");
+  evaluate(1,mux21.get_out()); 
+
+  printf("\nTestCase 1\n");
+  mux21.set_s(0);
+  evaluate(0,mux21.get_out()); 
+
+
+  printf("\n********************\n");
+  //printf ("%d passed tests, %d failed tests.\n",passed, failed);
+
+  if(failed == 0)
   {
     printf("PASSED SUCCESSFULL!\n");
     exit(0);

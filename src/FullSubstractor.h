@@ -1,21 +1,21 @@
 #include "Utils.h"
 
-class FullAdder {
+class FullSubstractor {
   private:
-    Bit carry_in,a,b,out,carry_out;
+    Bit a,b,carry_in,out,borrow;
     void compute();
 
   public:
     //Constructor
     //srand is called in main at begining
-    FullAdder();
-    FullAdder(Bit a_in, Bit b_in, Bit c_in);
+    FullSubstractor();
+    FullSubstractor(Bit a_in, Bit b_in, Bit c_in);
 
     //Get and Set
     void set_a (Bit a_in);
     void set_b (Bit b_in);
     void set_carry_in (Bit c);
     Bit get_out();
-    Bit get_carry_out();
+    Bit get_borrow();
 };
 
