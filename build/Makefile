@@ -10,8 +10,8 @@ BIN=./
 
 #TODO: setup shouldn't be done in a explicit build
 
-all: Main.o And2.o Or2.o Not.o Mux2_1.o	FullAdder.o Add16.o FullSubstractor.o
-	$(CC) -o $(BIN)3S.out $(OBJS)Main.o $(OBJS)And2.o $(OBJS)Or2.o $(OBJS)Not.o $(OBJS)Mux2_1.o $(OBJS)FullAdder.o $(OBJS)Add16.o$(OBJS)FullSubstractor.o
+all: Main.o And2.o Or2.o Not.o Mux2_1.o	FullAdder.o Add16.o Sub16.o FullSubstractor.o
+	$(CC) -o $(BIN)3S.out $(OBJS)Main.o $(OBJS)And2.o $(OBJS)Or2.o $(OBJS)Not.o $(OBJS)Mux2_1.o $(OBJS)FullAdder.o $(OBJS)Add16.o$(OBJS)FullSubstractor.o $(OBJS)Sub16.o
 
 setup: 
 	mkdir $(OBJS)
@@ -21,9 +21,9 @@ lgatesTL: And2.o Or2.o Not.o Mux2_1.o UtilsTest.o
 	$(CC) -o $(BIN)lgatesTL.out $(BIN)lgatesTL.o $(OBJS)And2.o $(OBJS)Or2.o $(OBJS)Not.o $(OBJS)Mux2_1.o $(OBJS)UtilsTest.o 
 	rm $(BIN)lgatesTL.o
 
-arithmeticTL: FullAdder.o Add16.o FullSubstractor.o UtilsTest.o
+arithmeticTL: FullAdder.o Add16.o FullSubstractor.o Sub16.o UtilsTest.o
 	$(CC) -c $(STEST)arithmeticTL.cpp 
-	$(CC) -o $(BIN)arithmeticTL.out $(BIN)arithmeticTL.o $(OBJS)FullAdder.o $(OBJS)Add16.o $(OBJS)FullSubstractor.o $(OBJS)UtilsTest.o 
+	$(CC) -o $(BIN)arithmeticTL.out $(BIN)arithmeticTL.o $(OBJS)FullAdder.o $(OBJS)Add16.o $(OBJS)FullSubstractor.o $(OBJS)UtilsTest.o $(OBJS)Sub16.o
 	rm $(BIN)arithmeticTL.o
 	
 And2.o:
@@ -60,7 +60,11 @@ FullSubstractor.o:
 
 Add16.o:
 	$(CC) -c $(SRC)Add16.cpp
-	mv Add16.o $(OBJS)			
+	mv Add16.o $(OBJS)
+
+Sub16.o:
+	$(CC) -c $(SRC)Sub16.cpp
+	mv Sub16.o $(OBJS)			
 	
 clean_all:	
 	if [ -d "$(OBJS)" ]; then rm -r $(OBJS); fi

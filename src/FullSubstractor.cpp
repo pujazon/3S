@@ -43,14 +43,12 @@ void FullSubstractor::compute()
 Bit FullSubstractor::get_out()
 {
   compute();
-  printf("out = %d;borrow = %d\n",out,borrow);
   return out; 
 }
 
 Bit FullSubstractor::get_borrow()
 {
   compute();
-  printf("out = %d;borrow = %d\n",out,borrow);
   return borrow;
 }
 
