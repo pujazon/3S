@@ -17,22 +17,22 @@ int main()
   srand (time(NULL));
   printf ("Random initialized!\n");
 
-  AND2 		and1(1,1);
-  OR2 		or1(0,0);
-  NOT 		n(1);
+  And2 		and1(1,1);
+  Or2 		or1(0,0);
+  Not 		n(1);
   MUX2_1	mux21(0,1,1);
 
   printf("\n********************\n");
-  printf("AND2 Test:\n");
+  printf("And2 Test:\n");
   evaluate(1,and1.get_out());
 
 
   printf("\n********************\n");
-  printf("OR2 Test:\n");
+  printf("Or2 Test:\n");
   evaluate(0,or1.get_out());
 
   printf("\n********************\n");
-  printf("NOT Test:\n");
+  printf("Not Test:\n");
   evaluate(0,n.get_out());
 
   printf("\n********************\n");

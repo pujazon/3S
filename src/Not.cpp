@@ -1,21 +1,21 @@
 #include "Not.h"
 
-NOT::NOT()
+Not::Not()
 {
   in = rand();
 }
 
-NOT::NOT(Bit a)
+Not::Not(Bit a)
 {
   in = a;
 }
 
-void NOT::set_in(Bit a)
+void Not::set_in(Bit a)
 {
   in = a;
 }
 
-Bit NOT::get_out() {
+Bit Not::get_out() {
   out = !in; 
   return out;
 }

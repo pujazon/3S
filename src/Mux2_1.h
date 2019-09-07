@@ -1,3 +1,6 @@
+#ifndef MUX21_H
+#define MUX21_H
+
 #include "Utils.h"
 
 class MUX2_1 {
@@ -16,3 +19,5 @@ class MUX2_1 {
     void set_s (Bit s_in);
     Bit get_out();
 };
+
+#endif /* MUX21_H */

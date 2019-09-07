@@ -1,3 +1,6 @@
+#ifndef FULLADDER_H
+#define FULLADDER_H
+
 #include "Utils.h"
 
 class FullAdder {
@@ -18,4 +21,6 @@ class FullAdder {
     Bit get_out();
     Bit get_carry_out();
 };
+
+#endif /* FULLADDER_H */
 

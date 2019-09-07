@@ -1,3 +1,6 @@
+#ifndef FULLSUBSTRACTOR_H
+#define FULLSUBSTRACTOR_H
+
 #include "Utils.h"
 
 class FullSubstractor {
@@ -18,4 +21,6 @@ class FullSubstractor {
     Bit get_out();
     Bit get_borrow();
 };
+
+#endif /* FULLSUBSTRACTOR_H */
 

@@ -1,3 +1,6 @@
+#ifndef SUB16_H
+#define SUB16_H
+
 #include "Utils.h"
 #include "FullSubstractor.h"
 
@@ -24,4 +27,6 @@ class Sub16 {
     WORD get_W();
     Bit get_borrow();
 };
+
+#endif /* SUB16_H */
 

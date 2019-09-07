@@ -1,3 +1,6 @@
+#ifndef ADD16_H
+#define ADD16_H
+
 #include "Utils.h"
 #include "FullAdder.h"
 
@@ -24,4 +27,6 @@ class Add16 {
     WORD get_W();
     Bit get_carry_out();
 };
+
+#endif /* ADD16_H */
 

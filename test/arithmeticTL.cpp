@@ -1,6 +1,9 @@
 #include "../src/UtilsTest.h"
 #include "../src/Add16.h"
 #include "../src/Sub16.h"
+#include "../src/Eq.h"
+#include "../src/Leu.h"
+#include "../src/Ltu.h"
 
 //TODO: Coherence between failed and passed with TEST_CASES
 //#define TEST_CASES 8
@@ -20,6 +23,10 @@ int main()
   FullSubstractor	FS(0,0,0);
   Add16			ADD(3,3);
   Sub16			SUB(200,7);
+  Z16			Z(0);
+  Eq			EQ(0xF,0xF);
+  Leu			LEU(0xD,0xD);
+  Ltu			LTU(0xB,0xB);
 
   printf("\n********************\n");
   printf("FullAdder Test\n"); 
@@ -41,7 +48,6 @@ int main()
   FA.set_carry_in(1);
   evaluate(1,FA.get_out());
   evaluate(1,FA.get_carry_out()); 
-
 
   printf("\n********************\n");
   printf("FullSubstractor Test\n"); 
@@ -106,6 +112,88 @@ int main()
   SUB.set_Y(23454);
   evaluate(0,SUB.get_W());
   evaluate(0,SUB.get_borrow());  
+
+  printf("\n********************\n");
+  printf("Bloc Z Test\n"); 
+  printf("Remember: If any bit set returns 0, else (all zero) returns 1\n"); 
+  printf("TestCase 0\n");
+  evaluate(1,Z.get_z());
+
+  printf("\nTestCase 1\n");
+  Z.set_W(0x1);
+  evaluate(0,Z.get_z());
+
+  printf("\nTestCase 2\n");
+  Z.set_W(0x5);
+  evaluate(0,Z.get_z());
+
+  printf("\nTestCase 3\n");
+  Z.set_W(0xA);
+  evaluate(0,Z.get_z());
+
+  printf("\n********************\n");
+  printf("Bloc EQ Test\n"); 
+  printf("Remember: If equal returns 1, else returns 0\n"); 
+  printf("TestCase 0\n");
+  evaluate(1,EQ.get_w());
+
+  printf("\nTestCase 1\n");
+  EQ.set_X(0x2);
+  EQ.set_Y(0xA);
+  evaluate(0,EQ.get_w());
+
+  printf("\nTestCase 2\n");
+  EQ.set_X(0xE);
+  EQ.set_Y(0xD);
+  evaluate(0,EQ.get_w());
+
+  printf("\nTestCase 3\n");
+  EQ.set_X(0x2);
+  EQ.set_Y(0x2);
+  evaluate(1,EQ.get_w());
+
+  printf("\n********************\n");
+  printf("Bloc LTU Test\n"); 
+  printf("Remember: If less 1, else returns 0\n"); 
+  printf("out = 1 = borrow = X-Y < 0 = X < Y\n"); 
+  printf("TestCase 0\n");
+  evaluate(0,LTU.get_w());
+
+  printf("\nTestCase 1\n");
+  LTU.set_X(0x2);
+  LTU.set_Y(0xA);
+  evaluate(1,LTU.get_w());
+
+  printf("\nTestCase 2\n");
+  LTU.set_X(0x4);
+  LTU.set_Y(0x9);
+  evaluate(1,LTU.get_w());
+
+  printf("\nTestCase 3\n");
+  LTU.set_X(0xA);
+  LTU.set_Y(0x2);
+  evaluate(0,LTU.get_w());
+
+  printf("\n********************\n");
+  printf("Bloc LEU Test\n"); 
+  printf("Remember: If less or equal returns 1, else returns 0\n"); 
+  printf("TestCase 0\n");
+  evaluate(1,LEU.get_w());
+
+  printf("\nTestCase 1\n");
+  LEU.set_X(0x2);
+  LEU.set_Y(0xA);
+  evaluate(1,LEU.get_w());
+
+  printf("\nTestCase 2\n");
+  LEU.set_X(0x1);
+  LEU.set_Y(0x1);
+  evaluate(1,LEU.get_w());
+
+  printf("\nTestCase 3\n");
+  LEU.set_X(0x3);
+  LEU.set_Y(0x2);
+  evaluate(0,LEU.get_w());
 
   //printf ("%d passed tests, %d failed tests.\n",passed, failed);
 
