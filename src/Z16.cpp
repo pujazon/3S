@@ -19,37 +19,32 @@ void Z16::set_W (WORD W_in)
 void Z16::compute()
 {  
   z= 0;
-
-  //Readeable code
-  int local_in1,local_in2 = 0; 
+  int bitlength = sizeof(WORD)*8;
+  
+  //TODO: 4 bytes for each bit (128 bytes for each 4 bytes bitarray). Bad Memory Usage
+  Bit BitArray[bitlength];
+  GetBitArray(W,bitlength,BitArray);
 
   //TODO: Performance. Loop fusion?
   //L1
   for(int i=0;i<8;i++) 
   {   
-    //Mask on i-th bit of W and set it to lsb	
-    local_in1 = (W&(1<<(i*2)))>>(i*2);
-    local_in2 = (W&(1<<(i*2+1)))>>(i*2+1);
-    OrL1[i].set_in1(local_in1);
-    OrL1[i].set_in2(local_in2);
+    OrL1[i].set_in1(BitArray[i*2]);
+    OrL1[i].set_in2(BitArray[i*2+1]);
   }
 
   //L2
   for(int i=0;i<4;i++) 
   {   	
-    local_in1 = OrL1[i*2].get_out();	
-    local_in2 = OrL1[i*2+1].get_out();
-    OrL2[i].set_in1(local_in1);
-    OrL2[i].set_in2(local_in2);
+    OrL2[i].set_in1(OrL1[i*2].get_out());
+    OrL2[i].set_in2(OrL1[i*2+1].get_out());
   }
 
   //L3
   for(int i=0;i<2;i++) 
   {   
-    local_in1 = OrL2[i*2].get_out();	
-    local_in2 = OrL2[i*2+1].get_out();
-    OrL3[i].set_in1(local_in1);
-    OrL3[i].set_in2(local_in2);
+    OrL3[i].set_in1(OrL2[i*2].get_out());
+    OrL3[i].set_in2(OrL2[i*2+1].get_out());
   }
 
   OrL4.set_in1(OrL3[0].get_out());

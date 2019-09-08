@@ -1,4 +1,4 @@
-#include "../src/UtilsTest.h"
+#include "../test/UtilsTest.h"
 #include "../src/And2.h"
 #include "../src/Not.h"
 #include "../src/Or2.h"

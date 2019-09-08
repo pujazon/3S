@@ -1,3 +1,6 @@
+#ifndef UTILS_H
+#define UTILS_H
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,3 +13,8 @@ using namespace std;
 typedef int BYTE;
 typedef int WORD;
 typedef int Bit;
+
+void GetBitArray(int Bus, int size, Bit *BitArray);
+void printBitArray(Bit *BitArray, int size);
+
+#endif /* UTILS_H */

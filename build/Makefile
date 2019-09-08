@@ -10,21 +10,23 @@ BIN=./
 
 #TODO: setup shouldn't be done in a explicit build
 
-all: Main.o And2.o Or2.o Not.o Mux2_1.o	FullAdder.o Add16.o Sub16.o FullSubstractor.o Z16.o Eq.o Leu.o Ltu.o
-	$(CC) -o $(BIN)3S.out $(OBJS)Main.o $(OBJS)And2.o $(OBJS)Or2.o $(OBJS)Not.o $(OBJS)Mux2_1.o $(OBJS)FullAdder.o $(OBJS)Add16.o $(OBJS)FullSubstractor.o $(OBJS)Sub16.o $(OBJS)Z16.o $(OBJS)Eq.o $(OBJS)Leu.o $(OBJS)Ltu.o
+all: Main.o And2.o Or2.o Not.o Mux2_1.o	FullAdder.o Add16.o Sub16.o FullSubstractor.o Z16.o Eq.o Leu.o Ltu.o Utils.o
+	$(CC) -o $(BIN)3S.out $(OBJS)Main.o $(OBJS)And2.o $(OBJS)Or2.o $(OBJS)Not.o $(OBJS)Mux2_1.o $(OBJS)FullAdder.o $(OBJS)Add16.o $(OBJS)FullSubstractor.o $(OBJS)Sub16.o $(OBJS)Z16.o $(OBJS)Eq.o $(OBJS)Leu.o $(OBJS)Ltu.o $(OBJS)Utils.o
 
 setup: 
 	mkdir $(OBJS)
 
-lgatesTL: And2.o Or2.o Not.o Mux2_1.o UtilsTest.o
+lgatesTL: And2.o Or2.o Not.o Mux2_1.o UtilsTest.o Utils.o
 	$(CC) -c $(STEST)lgatesTL.cpp 
-	$(CC) -o $(BIN)lgatesTL.out $(BIN)lgatesTL.o $(OBJS)And2.o $(OBJS)Or2.o $(OBJS)Not.o $(OBJS)Mux2_1.o $(OBJS)UtilsTest.o 
+	$(CC) -o $(BIN)lgatesTL.out $(BIN)lgatesTL.o $(OBJS)And2.o $(OBJS)Or2.o $(OBJS)Not.o $(OBJS)Mux2_1.o $(OBJS)UtilsTest.o $(OBJS)Utils.o 
 	rm $(BIN)lgatesTL.o
+	rm $(OBJS)UtilsTest.o
 
-arithmeticTL: Or2.o FullAdder.o Add16.o Not.o FullSubstractor.o Sub16.o UtilsTest.o Z16.o Eq.o Leu.o Ltu.o
+arithmeticTL: Or2.o FullAdder.o Add16.o Not.o FullSubstractor.o Sub16.o UtilsTest.o Z16.o Eq.o Leu.o Ltu.o Utils.o
 	$(CC) -c $(STEST)arithmeticTL.cpp 
-	$(CC) -o $(BIN)arithmeticTL.out $(BIN)arithmeticTL.o $(OBJS)Not.o $(OBJS)FullAdder.o $(OBJS)Add16.o $(OBJS)Or2.o $(OBJS)FullSubstractor.o $(OBJS)Z16.o  $(OBJS)UtilsTest.o $(OBJS)Sub16.o $(OBJS)Eq.o $(OBJS)Leu.o $(OBJS)Ltu.o
+	$(CC) -o $(BIN)arithmeticTL.out $(BIN)arithmeticTL.o $(OBJS)Not.o $(OBJS)FullAdder.o $(OBJS)Add16.o $(OBJS)Or2.o $(OBJS)FullSubstractor.o $(OBJS)Z16.o  $(OBJS)UtilsTest.o $(OBJS)Sub16.o $(OBJS)Eq.o $(OBJS)Leu.o $(OBJS)Ltu.o $(OBJS)Utils.o
 	rm $(BIN)arithmeticTL.o
+	rm $(OBJS)UtilsTest.o
 
 And2.o:
 	$(CC) -c $(SRC)And2.cpp
@@ -42,8 +44,12 @@ Mux2_1.o:
 	$(CC) -c $(SRC)Mux2_1.cpp
 	mv Mux2_1.o $(OBJS)
 
+Utils.o:
+	$(CC) -c $(SRC)Utils.cpp
+	mv Utils.o $(OBJS)
+
 UtilsTest.o:
-	$(CC) -c $(SRC)UtilsTest.cpp
+	$(CC) -c $(STEST)UtilsTest.cpp
 	mv UtilsTest.o $(OBJS)
 
 Main.o:
