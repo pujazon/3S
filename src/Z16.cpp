@@ -19,9 +19,9 @@ void Z16::set_W (WORD W_in)
 void Z16::compute()
 {  
   z= 0;
-  int bitlength = sizeof(WORD)*8;
-  
-  //TODO: 4 bytes for each bit (128 bytes for each 4 bytes bitarray). Bad Memory Usage
+  //TODO: Shouldn't be hardcoded, but types size must be fixed (WORD, BYTE...) 
+  int bitlength = 16;
+    
   Bit BitArray[bitlength];
   GetBitArray(W,bitlength,BitArray);
 

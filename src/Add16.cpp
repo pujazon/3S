@@ -26,12 +26,19 @@ void Add16::set_Y (WORD Y_in)
 
 void Add16::compute()
 {  
-  W= 0; 
+  W= 0;
+  //TODO: Shouldn't be hardcoded, but types size must be fixed (WORD, BYTE...) 
+  int bitlength = 16;
+    
+  Bit X_BitArray[bitlength];
+  Bit Y_BitArray[bitlength];
+  GetBitArray(X,bitlength,X_BitArray);
+  GetBitArray(Y,bitlength,Y_BitArray);
 
   for(int i=0;i<=15;i++) 
   {    
-    FA[i].set_a((X>>i)&0x01);
-    FA[i].set_b((Y>>i)&0x01);
+    FA[i].set_a(X_BitArray[i]);
+    FA[i].set_b(Y_BitArray[i]);
     FA[i].set_carry_in(i == 0 ? 0:FA[i-1].get_carry_out());
 
     //We compute the i bit of W. We must add it factorizating

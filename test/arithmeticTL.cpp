@@ -195,7 +195,7 @@ int main()
   LEU.set_Y(0x2);
   evaluate(0,LEU.get_w());
 
-  //printf ("%d passed tests, %d failed tests.\n",passed, failed);
+  printf ("%d passed tests, %d failed tests.\n",passed, failed);
 
   if(failed == 0)
   {

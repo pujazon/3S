@@ -14,7 +14,8 @@ typedef int BYTE;
 typedef int WORD;
 typedef int Bit;
 
-void GetBitArray(int Bus, int size, Bit *BitArray);
-void printBitArray(Bit *BitArray, int size);
+//TODO: 4 bytes for each bit (128 bytes for each 4 bytes bitarray). Bad Memory Usage
+void GetBitArray(int Bus, int bitlength, Bit *BitArray);
+void printBitArray(Bit *BitArray, int bitlength);
 
 #endif /* UTILS_H */
