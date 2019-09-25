@@ -1,12 +1,14 @@
-#ifndef ADD16_H
-#define ADD16_H
+#ifndef ADD16Z_H
+#define ADD16Z_H
 
 #include "Utils.h"
 #include "FullAdder.h"
+#include "Xor2.h"
 
-class Add16 {
+class Add16Z{
   private:
     FullAdder FA[16];
+    Xor2 XOR;
     WORD X;
     WORD Y;
     WORD W;
@@ -18,8 +20,8 @@ class Add16 {
   public:
     //Constructor
     //srand is called in main at begining
-    Add16();
-    Add16(WORD X_in, WORD Y_in);
+    Add16Z();
+    Add16Z(WORD X_in, WORD Y_in);
 
     //Get and Set
     void set_X (WORD X_in);
@@ -28,5 +30,4 @@ class Add16 {
     Bit get_carry_out();
 };
 
-#endif /* ADD16_H */
-
+#endif /* ADD16Z_H */

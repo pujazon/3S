@@ -10,21 +10,29 @@ BIN=./
 
 #TODO: setup shouldn't be done in a explicit build
 
-all: Main.o And2.o Or2.o Not.o Mux2_1.o	FullAdder.o Add16.o Sub16.o FullSubstractor.o Z16.o Eq.o Leu.o Ltu.o Utils.o
-	$(CC) -o $(BIN)3S.out $(OBJS)Main.o $(OBJS)And2.o $(OBJS)Or2.o $(OBJS)Not.o $(OBJS)Mux2_1.o $(OBJS)FullAdder.o $(OBJS)Add16.o $(OBJS)FullSubstractor.o $(OBJS)Sub16.o $(OBJS)Z16.o $(OBJS)Eq.o $(OBJS)Leu.o $(OBJS)Ltu.o $(OBJS)Utils.o
+all: Main.o And2.o Or2.o Not.o Mux2_1.o	FullAdder.o Add16N.o Sub16.o FullSubstractor.o Z16.o Eq.o Leu.o \
+ Ltu.o Add16Z.o Utils.o \
+	$(CC) -o $(BIN)3S.out $(OBJS)Main.o $(OBJS)And2.o $(OBJS)Or2.o $(OBJS)Not.o $(OBJS)Mux2_1.o \
+	 $(OBJS)FullAdder.o $(OBJS)Add16N.o $(OBJS)FullSubstractor.o $(OBJS)Sub16.o $(OBJS)Z16.o $(OBJS)Eq.o \
+	  $(OBJS)Leu.o $(OBJS)Ltu.o $(OBJS)Add16Z.o $(OBJS)Utils.o
 
 setup: 
 	mkdir $(OBJS)
 
-lgatesTL: And2.o Or2.o Not.o Mux2_1.o UtilsTest.o Utils.o
+lgatesTL: Xor2.o And2.o Or2.o Not.o Mux2_1.o UtilsTest.o Utils.o
 	$(CC) -c $(STEST)lgatesTL.cpp 
-	$(CC) -o $(BIN)lgatesTL.out $(BIN)lgatesTL.o $(OBJS)And2.o $(OBJS)Or2.o $(OBJS)Not.o $(OBJS)Mux2_1.o $(OBJS)UtilsTest.o $(OBJS)Utils.o 
+	$(CC) -o $(BIN)lgatesTL.out $(BIN)lgatesTL.o $(OBJS)And2.o $(OBJS)Xor2.o $(OBJS)Or2.o \
+	 $(OBJS)Not.o $(OBJS)Mux2_1.o $(OBJS)UtilsTest.o $(OBJS)Utils.o 
 	rm $(BIN)lgatesTL.o
 	rm $(OBJS)UtilsTest.o
 
-arithmeticTL: Or2.o FullAdder.o Add16.o Not.o FullSubstractor.o Sub16.o UtilsTest.o Z16.o Eq.o Leu.o Ltu.o Utils.o
+arithmeticTL: Xor2.o Or2.o FullAdder.o Add16N.o Add16Z.o Not.o FullSubstractor.o Sub16.o \
+UtilsTest.o Z16.o Eq.o Leu.o Ltu.o Utils.o
 	$(CC) -c $(STEST)arithmeticTL.cpp 
-	$(CC) -o $(BIN)arithmeticTL.out $(BIN)arithmeticTL.o $(OBJS)Not.o $(OBJS)FullAdder.o $(OBJS)Add16.o $(OBJS)Or2.o $(OBJS)FullSubstractor.o $(OBJS)Z16.o  $(OBJS)UtilsTest.o $(OBJS)Sub16.o $(OBJS)Eq.o $(OBJS)Leu.o $(OBJS)Ltu.o $(OBJS)Utils.o
+	$(CC) -o $(BIN)arithmeticTL.out $(BIN)arithmeticTL.o $(OBJS)Not.o $(OBJS)Xor2.o $(OBJS)FullAdder.o \
+	 $(OBJS)Add16N.o $(OBJS)Add16Z.o $(OBJS)Or2.o \
+	 $(OBJS)FullSubstractor.o $(OBJS)Z16.o  $(OBJS)UtilsTest.o $(OBJS)Sub16.o $(OBJS)Eq.o $(OBJS)Leu.o $(OBJS)Ltu.o \
+	  $(OBJS)Utils.o \
 	rm $(BIN)arithmeticTL.o
 	rm $(OBJS)UtilsTest.o
 
@@ -35,6 +43,10 @@ And2.o:
 Or2.o:
 	$(CC) -c $(SRC)Or2.cpp
 	mv Or2.o $(OBJS)
+	
+Xor2.o:
+	$(CC) -c $(SRC)Xor2.cpp
+	mv Xor2.o $(OBJS)
 
 Not.o:
 	$(CC) -c $(SRC)Not.cpp
@@ -64,9 +76,13 @@ FullSubstractor.o:
 	$(CC) -c $(SRC)FullSubstractor.cpp
 	mv FullSubstractor.o $(OBJS)
 
-Add16.o:
-	$(CC) -c $(SRC)Add16.cpp
-	mv Add16.o $(OBJS)
+Add16N.o:
+	$(CC) -c $(SRC)Add16N.cpp
+	mv Add16N.o $(OBJS)
+	
+Add16Z.o:
+	$(CC) -c $(SRC)Add16Z.cpp
+	mv Add16Z.o $(OBJS)
 
 Sub16.o:
 	$(CC) -c $(SRC)Sub16.cpp

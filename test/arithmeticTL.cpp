@@ -1,5 +1,5 @@
 #include "../test/UtilsTest.h"
-#include "../src/Add16.h"
+#include "../src/Add16N.h"
 #include "../src/Sub16.h"
 #include "../src/Eq.h"
 #include "../src/Leu.h"
@@ -19,14 +19,14 @@ int main()
   srand (time(NULL));
   printf ("Random initialized!\n");
 
-  FullAdder		FA(0,0,0);
+  FullAdder			FA(0,0,0);
   FullSubstractor	FS(0,0,0);
-  Add16			ADD(3,3);
-  Sub16			SUB(200,7);
-  Z16			Z(0);
-  Eq			EQ(0xF,0xF);
-  Leu			LEU(0xD,0xD);
-  Ltu			LTU(0xB,0xB);
+  Add16N			ADD(3,3);
+  Sub16				SUB(200,7);
+  Z16				Z(0);
+  Eq				EQ(0xF,0xF);
+  Leu				LEU(0xD,0xD);
+  Ltu				LTU(0xB,0xB);
 
   printf("\n********************\n");
   printf("FullAdder Test\n"); 
